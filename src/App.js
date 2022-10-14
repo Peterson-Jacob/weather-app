@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import react, {useState} from "react";
 import './App.css';
 
 function App() {
+
+  const [weather, setWeather] = useState();
+
+  
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': '',
+      'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
+    }
+  };
+  
+  fetch('https://weatherapi-com.p.rapidapi.com/forecast.json?q=74745&days=3', options)
+    .then(response => response.json())
+    .then(response => setWeather(response))
+  
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <h1>{weather.temp}</h1>
+        <h2>{weather.town}</h2>
     </div>
   );
 }
